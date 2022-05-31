@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Button, Container, Row, Form, Input, Col, Alert } from 'reactstrap';
-import { User } from './User';
+import { User } from '../../data/User';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../store/UserContext';
 const BootstrapLogin = () => {
     const [isFail, setIsFail] = useState(false);
     const [user, setUser] = useState({
@@ -13,6 +14,7 @@ const BootstrapLogin = () => {
         setUser({ ...user, [name]: value });
     };
     const navigate = useNavigate();
+    const { users } = useContext(UserContext);
     const onSubmitLogin = (e) => {
         e.preventDefault();
         const findUser = User.find((data) => data.userId === user.id && user.password === data.password);
@@ -56,7 +58,7 @@ const BootstrapLogin = () => {
             <Container className="bg-light border">
                 <Row style={{ padding: '1em', textAlign: 'center' }}>
                     <p>
-                        계정이 없으신가요? <a href="g"> 가입하기</a>
+                        계정이 없으신가요? <a href="/Join"> 가입하기</a>
                     </p>
                 </Row>
             </Container>
