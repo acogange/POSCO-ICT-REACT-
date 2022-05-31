@@ -13,7 +13,7 @@ const BootstrapLogin = () => {
                             <Input type="text" placeholder="ID" name="id"></Input>
                             <Input type="password" placeholder="password" name="password"></Input>
                             <Button type={'submit'} color="primary" block>
-                                로그인
+                                login
                             </Button>
                         </Form>
                     </Col>
