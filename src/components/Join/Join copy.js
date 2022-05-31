@@ -1,9 +1,7 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Col, Container, Form, Input, Row, Alert, Button } from 'reactstrap';
-import AuthRouter from '../AuthRouter';
-import { UserContext } from '../store/UserContext';
-import './Join.css';
+import { Alert, Button, Col, Container, Form, Input, Row } from 'reactstrap';
+import { UserContext } from '../../store/UserContext';
 
 const Join = () => {
     const [isFail, setIsFail] = useState(false);
@@ -14,28 +12,28 @@ const Join = () => {
         name: '',
     });
     const navigate = useNavigate();
-
     const { insertUsers, users } = useContext(UserContext);
     const onSubmitLogin = (e) => {
         e.preventDefault();
         const findUser = users.find((data) => data.userId === user.id);
         if (findUser) {
-            // 아이디 존재
+            //아이디 존재
             openAlert('이미 존재하는 아이디');
             return;
         } else if (user.id === '') {
-            // id is null
+            //id is null
             openAlert('아이디를 입력해주세요');
             return;
         } else if (user.password === '') {
-            // password is null
+            //password is null
             openAlert('비밀번호를 입력해주세요');
             return;
         } else if (user.name === '') {
-            // name is null
+            //name is null
             openAlert('이름을 입력해주세요');
             return;
         } else {
+            /* Users.push({ ...user, userId: user.id, id: user.length }); */
             insertUsers(user);
             localStorage.setItem('id', users.length);
             navigate('/');
@@ -54,15 +52,13 @@ const Join = () => {
         const { name, value } = e.target;
         setUser({ ...user, [name]: value });
     };
-
     return (
         <div className="JoinPage">
             <Container className="bg-light border">
                 <Row style={{ rowGap: '1em', padding: '3em' }}>
                     <Col xl={12}>
-                        <img src="https://www.instagram.com/static/images/web/logged_out_wordmark-2x.png/d2529dbef8ed.png" alt="Logo"></img>
+                        <img src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png" alt="Logo"></img>
                     </Col>
-
                     <Col xl={12}>
                         <Form onSubmit={onSubmitLogin} className="JoinForm">
                             {isFail ? (
@@ -83,11 +79,10 @@ const Join = () => {
             <Container className="bg-light border">
                 <Row style={{ padding: '1em', textAlign: 'center' }}>
                     <p>
-                        계정이 있으신가요? <a href="/login">로그인</a>
+                        계정이 있으신가요? <a href="/login">로그인하기</a>
                     </p>
                 </Row>
             </Container>
-            <AuthRouter></AuthRouter>
         </div>
     );
 };

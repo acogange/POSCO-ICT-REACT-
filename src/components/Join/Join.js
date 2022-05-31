@@ -3,7 +3,7 @@ import { Button, Container, Row, Form, Input, Col, Alert } from 'reactstrap';
 import { User } from '../../data/User';
 import { useNavigate, useResolvedPath } from 'react-router-dom';
 import { UserContext } from '../../store/UserContext';
-import AuthRouter from '../AuthRouter';
+
 const Join = () => {
     const [isFail, setIsFail] = useState(false);
     const [text, setText] = useState('');
@@ -82,7 +82,6 @@ const Join = () => {
                     </p>
                 </Row>
             </Container>
-            <AuthRouter></AuthRouter>
         </div>
     );
 };

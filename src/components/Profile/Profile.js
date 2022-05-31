@@ -15,7 +15,6 @@ const Profile = () => {
         <>
             <ProfileHeader name={name}></ProfileHeader>
             <Container className="ProfileContainer">
-                <div>profile</div>
                 <ProfileBody img={img}></ProfileBody>
             </Container>
         </>
