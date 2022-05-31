@@ -15,7 +15,7 @@ const Login = () => {
             </div>
             <div className="Box">
                 <p>
-                    계정이 없으신가요? <a href="g">가입하기</a>
+                    계정이 없으신가요? <a href="/join">가입하기</a>
                 </p>
             </div>
         </div>
