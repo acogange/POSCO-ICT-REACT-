@@ -15,6 +15,7 @@ function App() {
     const insertUsers = (user) => {
         const newUser = { ...user, userId: user.id, id: users.length };
         setUser([...users, newUser]);
+        //불변성때문
     };
     return (
         <div className="App">
