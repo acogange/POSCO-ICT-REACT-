@@ -5,6 +5,7 @@ import ProfileBody from './ProfileBody';
 import ProfileHeader from './ProfileHeader';
 import { FollowContext } from '../../store/FollowContext';
 import { PostContext } from '../../store/PostContext';
+import ProfileBoard from './ProfileBoard';
 
 const Profile = () => {
     const { users } = useContext(UserContext);
@@ -13,7 +14,7 @@ const Profile = () => {
         return users.find((user) => id === user.id);
     };
     const { name, img } = getUser();
-    const { posts } = useContext(PostContext);
+    const { posts, deletePost } = useContext(PostContext);
     const { follows } = useContext(FollowContext);
 
     const myPosts = () => {
@@ -31,6 +32,7 @@ const Profile = () => {
             <ProfileHeader name={name}></ProfileHeader>
             <Container className="ProfileContainer">
                 <ProfileBody img={img} follower={myFollower()} following={myFollowing()} posts={myPosts()}></ProfileBody>
+                <ProfileBoard posts={myPosts()} name={name} img={img} deletePost={deletePost}></ProfileBoard>
             </Container>
         </>
     );

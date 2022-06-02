@@ -17,7 +17,7 @@ const Join = () => {
     const onSubmitLogin = (e) => {
         e.preventDefault();
         const findUser = users.find((data) => data.userId === user.id);
-        console.log(findUser, users, insertUsers.toString());
+
         if (findUser) {
             openAlert('이미 존재하는 아이디');
             return;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from 'reactstrap';
+import { Button, Container } from 'reactstrap';
 import './ProfileBody.css';
 import ProfileUpdate from './ProfileUpdate';
 const ProfileBody = ({
@@ -16,6 +16,7 @@ const ProfileBody = ({
     const modalOpen = () => {
         setIsOpen(true);
     };
+
     return (
         <>
             <div className="profileBodyBox">
