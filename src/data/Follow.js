@@ -1,7 +1,7 @@
 export const Follow = [
-    { Follower: 1, follwing: 2 },
-    { Follower: 2, follwing: 1 },
-    { Follower: 1, follwing: 0 },
-    { Follower: 0, follwing: 1 },
-    { Follower: 2, follwing: 0 },
+    { follower: 1, following: 2 },
+    { follower: 2, following: 1 },
+    { follower: 1, following: 0 },
+    { follower: 0, following: 1 },
+    { follower: 2, following: 0 },
 ];
