@@ -4,7 +4,7 @@ export const User = [
         name: 'kim',
         userId: 'kim',
         password: '1234',
-        img: 'E:\reactmy_instarsrcimgKakaoTalk_20220531_162128984_01.jpg',
+        img: '/img/profile/효정선글.jpg',
     },
     {
         id: 1,
