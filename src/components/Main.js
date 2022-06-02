@@ -1,11 +1,6 @@
 import AuthRounter from './AuthRouter';
 
 const Main = () => {
-    return (
-        <div>
-            login
-            <AuthRounter></AuthRounter>
-        </div>
-    );
+    return <div></div>;
 };
 export default Main;

@@ -1,12 +1,14 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { User } from './Login/User';
+import { UserContext } from '../store/UserContext';
+import { User } from '../data/User';
 
 const Page404 = () => {
     const navigate = useNavigate();
+    const { users } = useContext(UserContext);
     useEffect(() => {
         const id = localStorage.getItem('id');
-        const findUser = User.find((data) => data.id === Number(id));
+        const findUser = users.find((data) => data.id === Number(id));
         if (!findUser) {
             navigate('/login');
         } else {
