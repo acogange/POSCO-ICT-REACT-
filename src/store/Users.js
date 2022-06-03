@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { User } from '../data/User';
-import { checkId, getUserById, getUserByUserId, loginApi, postUser } from './userApi';
+import { checkId, getUserById, getUserByUserId, loginApi, logoutApi, postUser } from './userApi';
 const initialState = {
     users: User,
-    myId: localStorage.getItem('id'),
-    isLogin: localStorage.getItem('id') === undefined ? true : false,
+    myId: Number(localStorage.getItem('id')),
+    isLogin: Number(localStorage.getItem('id')) === undefined ? true : false,
     me: {},
 };
 
@@ -14,8 +14,8 @@ const LOGIN = 'LOGIN';
 const INSERT_USER = 'INSERT_USER';
 const SELECT_USER_BY_ID = 'SELECT_USER_BY_ID';
 const SELECT_USER_BY_USERID = 'SELECT_USER_BY_USERID';
-const LOGOU = 'LOGOUT';
-
+const LOGOUT = 'LOGOUT';
+const UPDATE_USERS = 'UPDATE_USERS';
 export const getCheckId = createAsyncThunk(CHECK_ID, async (userId, thunkAPI) => {
     const { users } = thunkAPI.getState().users;
     return await checkId(users, userId);
@@ -31,7 +31,7 @@ export const loginCheck = createAsyncThunk(LOGIN_CHECK, async (payload, thunkAPI
     }
 });
 export const login = createAsyncThunk(LOGIN, async (user, thunkAPI) => {
-    const { users } = thunkAPI.getState().user;
+    const { users } = thunkAPI.getState().users;
     const isLogin = await loginApi(users, user);
     return isLogin;
 });
@@ -44,6 +44,22 @@ export const selectUserById = createAsyncThunk(SELECT_USER_BY_USERID, async (use
     const { users } = thunkAPI.getState().users;
     const newUser = await getUserByUserId(users, userId);
     return newUser;
+});
+export const putUsers = async (users, user, id) => {
+    const findUsersIndex = await users.findIndex((user) => user.id === id);
+    const { name, img } = user;
+    if (findUsersIndex === -1) {
+        console.error('not found');
+        return;
+    }
+    const newUsers = [...users];
+    newUsers.splice(findUsersIndex, 1, { ...user[findUsersIndex], name, img });
+    return newUsers;
+};
+export const updateUsers = createAsyncThunk(UPDATE_USERS, async (user, thunkAPI) => {
+    const { myId, users } = thunkAPI.getState().users;
+    const newUsers = await putUsers(users, user, myId);
+    return { newUsers, user };
 });
 
 export const userSlice = createSlice({
@@ -69,7 +85,21 @@ export const userSlice = createSlice({
             })
             .addCase(insertUser.fulfilled, (state, { payload }) => {
                 return { ...state, users: payload };
+            })
+            .addCase(logout.fulfilled, (state, { payload }) => {
+                localStorage.removeItem('id');
+                return { ...state, isLogin: false, me: {}, myId: '' };
+            })
+            .addCase(updateUsers.fulfilled, (state, { payload }) => {
+                const { newUsers, user } = payload;
+                return { ...state, me: { ...state.me, ...user }, users: newUsers };
             });
     },
+});
+
+export const logout = createAsyncThunk(LOGOUT, async (payload, thunkAPI) => {
+    const { myId } = thunkAPI.getState().users;
+    const isLogout = await logoutApi(myId);
+    return isLogout;
 });
 export default userSlice.reducer;
